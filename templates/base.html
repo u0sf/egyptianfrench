@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاكاديمية المصرية الفرنسية</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        .footer {
+            flex-shrink: 0;
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .social-links a {
+            color: #6c757d;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: #0d6efd;
+        }
+        .nav-link {
+            font-weight: 500;
+        }
+        .nav-link.active {
+            color: #0d6efd !important;
+        }
+        /* Dark mode styles */
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #1a1d20;
+            --bs-body-color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .navbar {
+            background-color: #212529 !important;
+            border-bottom: 1px solid #343a40;
+        }
+        [data-bs-theme="dark"] .navbar, [data-bs-theme="dark"] .navbar .navbar-brand, [data-bs-theme="dark"] .navbar .nav-link, [data-bs-theme="dark"] .navbar .nav-link i, [data-bs-theme="dark"] .navbar .navbar-toggler, [data-bs-theme="dark"] .navbar .btn {
+            color: #f8f9fa !important;
+        }
+        [data-bs-theme="dark"] .navbar .nav-link.active {
+            color: #0d6efd !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-primary {
+            color: #0d6efd !important;
+            border-color: #0d6efd !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-primary:hover {
+            background-color: #0d6efd !important;
+            color: #fff !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-secondary {
+            color: #adb5bd !important;
+            border-color: #adb5bd !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-secondary:hover {
+            background-color: #adb5bd !important;
+            color: #212529 !important;
+        }
+        [data-bs-theme="dark"] .footer {
+            background-color: #212529;
+            color: #e9ecef;
+            border-top: 1px solid #343a40;
+        }
+        [data-bs-theme="dark"] .card {
+            background-color: #2c3034;
+            border-color: #343a40;
+        }
+        [data-bs-theme="dark"] .table {
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .table-light {
+            background-color: #2c3034;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .text-muted {
+            color: #adb5bd !important;
+        }
+        [data-bs-theme="dark"] .alert {
+            background-color: #2c3034;
+            border-color: #343a40;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .form-control {
+            background-color: #2c3034;
+            border-color: #343a40;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .form-control:focus {
+            background-color: #2c3034;
+            border-color: #0d6efd;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .progress {
+            background-color: #343a40;
+        }
+        /* Translation button styles */
+        .translation-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .translation-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .translation-btn:hover::after {
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="لوجو الأكاديمية" style="height: 48px; width: auto;">
+                الاكاديمية المصرية الفرنسية
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+                            <i class="fas fa-home ms-1"></i>الرئيسية
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'grades' %}active{% endif %}" href="{{ url_for('grades') }}">
+                            <i class="fas fa-graduation-cap ms-1"></i>الدرجات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'schedules' %}active{% endif %}" href="{{ url_for('schedules') }}">
+                            <i class="fas fa-calendar-alt ms-1"></i>المواعيد
+                        </a>
+                    </li>
+                    {% if session.get('admin_logged_in') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}" href="{{ url_for('admin_dashboard') }}">
+                            <i class="fas fa-tachometer-alt ms-1"></i>لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt ms-1"></i>تسجيل خروج
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ms-2">
+                        <button class="btn btn-outline-primary" onclick="toggleDarkMode()">
+                            <i class="fas fa-moon ms-1"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show m-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">تواصل معنا</h5>
+                    <p class="mb-1">
+                        <i class="fas fa-map-marker-alt ms-2"></i>
+                        فرع طنطا: سبرباي امام مجمع الكليات
+                    </p>
+                    <p class="mb-1">
+                        <i class="fas fa-map-marker-alt ms-2"></i>
+                        فرع المنصورة: شارع بن زيد امام بوابة توشكى
+                    </p>
+                    <p class="mb-1">
+                        <i class="fab fa-whatsapp ms-2"></i>
+                        واتساب: 01095991211
+                    </p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{{ url_for('home') }}" class="text-decoration-none text-muted">
+                                <i class="fas fa-angle-left ms-2"></i>الرئيسية
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{{ url_for('schedules') }}" class="text-decoration-none text-muted">
+                                <i class="fas fa-angle-left ms-2"></i>المواعيد
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{{ url_for('grades') }}" class="text-decoration-none text-muted">
+                                <i class="fas fa-angle-left ms-2"></i>الدرجات
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">تابعنا</h5>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/19BGwFHMTq/" target="_blank" title="فرع المنصورة">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/12JCph55cjJ/" target="_blank" title="فرع طنطا">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2024 الاكاديمية المصرية الفرنسية. جميع الحقوق محفوظة.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dark mode toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            // Update button icon
+            const button = document.querySelector('.btn-outline-primary');
+            const icon = button.querySelector('i');
+            icon.className = newTheme === 'dark' ? 'fas fa-sun ms-1' : 'fas fa-moon ms-1';
+        }
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        const darkModeButton = document.querySelector('.btn-outline-primary');
+        const darkModeIcon = darkModeButton.querySelector('i');
+        darkModeIcon.className = savedTheme === 'dark' ? 'fas fa-sun ms-1' : 'fas fa-moon ms-1';
+
+        // Translation toggle
+        let isEgyptian = false;
+        const translations = {
+            'University Portal': 'الاكاديمية المصرية الفرنسية',
+            'Home': 'الرئيسية',
+            'Grades': 'الدرجات',
+            'Schedules': 'المواعيد',
+            'Dashboard': 'لوحة التحكم',
+            'Logout': 'تسجيل خروج',
+            'Admin Login': 'تسجيل دخول المشرف',
+            'Welcome to University Portal': 'مرحباً بكم في الأكاديمية المصرية الفرنسية',
+            'Your gateway to academic excellence and university life': 'منصة تعليمية متكاملة للتميز الأكاديمي',
+            'Latest News': 'آخر الأخبار',
+            'University Achievements': 'إنجازات الأكاديمية',
+            'Check Your Grades': 'شوف درجاتك',
+            'Enter your seat number to view your academic results': 'دخل رقم جلوسك عشان تشوف نتيجتك',
+            'Search Results': 'بحث عن النتائج',
+            'Enter Your Seat Number': 'دخل رقم جلوسك',
+            'View Results': 'شوف النتيجة',
+            'Contact Us': 'تواصل معنا',
+            'Quick Links': 'روابط سريعة',
+            'About Us': 'عن الأكاديمية',
+            'Follow Us': 'تابعنا',
+            'All rights reserved': 'جميع الحقوق محفوظة',
+            '123 University Street, City': 'سبرباي امام مجمع الكليات',
+            'Add News': 'إضافة خبر',
+            'Add Achievement': 'إضافة إنجاز',
+            'Upload Schedule': 'رفع جدول',
+            'Upload Grades Excel File': 'رفع ملف درجات إكسل',
+            'Add New Student': 'إضافة طالب جديد',
+            'Student Results Management': 'إدارة نتائج الطلاب',
+            'Delete All Students': 'حذف كل الطلاب',
+            'Delete All Grades': 'حذف كل الدرجات',
+            'Are you sure you want to delete all students and their grades?': 'هل أنت متأكد إنك عايز تحذف كل الطلاب ودرجاتهم؟',
+            'Are you sure you want to delete all grades?': 'هل أنت متأكد إنك عايز تحذف كل الدرجات؟',
+            'Are you sure you want to delete this grade?': 'هل أنت متأكد إنك عايز تحذف الدرجة دي؟',
+            'Student not found!': 'الطالب مش موجود!',
+            'Invalid username or password!': 'اسم المستخدم أو كلمة المرور غلط!',
+            'News added successfully!': 'تم إضافة الخبر بنجاح!',
+            'News deleted successfully!': 'تم حذف الخبر بنجاح!',
+            'Achievement added successfully!': 'تم إضافة الإنجاز بنجاح!',
+            'Achievement deleted successfully!': 'تم حذف الإنجاز بنجاح!',
+            'Schedule added successfully!': 'تم إضافة الجدول بنجاح!',
+            'Schedule deleted successfully!': 'تم حذف الجدول بنجاح!',
+            'Student added successfully!': 'تم إضافة الطالب بنجاح!',
+            'Student with this seat number already exists!': 'الطالب برقم الجلوس ده موجود بالفعل!',
+            'Grades uploaded successfully!': 'تم رفع الدرجات بنجاح!',
+            'Please upload an Excel file (.xlsx)!': 'من فضلك ارفع ملف إكسل (.xlsx)!',
+            'No file selected!': 'مفيش ملف محدد!',
+            'No file uploaded!': 'مفيش ملف تم رفعه!',
+            'Error uploading file': 'خطأ في رفع الملف',
+            'Title': 'العنوان',
+            'Content': 'المحتوى',
+            'Image URL': 'رابط الصورة',
+            'Description': 'الوصف',
+            'Schedule File (PDF)': 'ملف الجدول (PDF)',
+            'Select Excel File (.xlsx)': 'اختر ملف إكسل (.xlsx)',
+            'Seat Number': 'رقم الجلوس',
+            'Student Name': 'اسم الطالب',
+            'Upload File': 'رفع الملف',
+            'Add Student': 'إضافة طالب',
+            'Seat No.': 'رقم الجلوس',
+            'Name': 'الاسم',
+            'Grade': 'الدرجة',
+            'Status': 'الحالة',
+            'Actions': 'الإجراءات',
+            'Pass': 'ناجح',
+            'Fail': 'راسب',
+            'No Grades': 'مفيش درجات',
+            'Edit': 'تعديل',
+            'Delete': 'حذف',
+            'View': 'عرض',
+            'Check Another Result': 'شوف نتيجة تانية',
+            'Total Students': 'إجمالي الطلاب',
+            'Students with Grades': 'الطلاب اللي عندهم درجات',
+            'Passing Students': 'الطلاب الناجحين',
+            'Failing Students': 'الطلاب الراسبين',
+            'Manage students, grades, news, and more': 'إدارة الطلاب والدرجات والأخبار وأكتر',
+            'English': 'إنجليزي',
+            'رسالة ترحيبية': 'رسالة ترحيبية',
+            'أبناؤنا وبناتنا الطلاب الأعزاء': 'أبناؤنا وبناتنا الطلاب الأعزاء',
+            'أعضاء منصة الفرنسيه المصريه الكرام': 'أعضاء منصة الفرنسيه المصريه الكرام',
+            'فروع الأكاديمية': 'فروع الأكاديمية',
+            'فرع طنطا': 'فرع طنطا',
+            'فرع المنصورة': 'فرع المنصورة',
+            'تابعنا على فيسبوك': 'تابعنا على فيسبوك',
+            'واتساب': 'واتساب',
+            'تواصل معنا': 'تواصل معنا'
+        };
+
+        function toggleTranslation() {
+            isEgyptian = !isEgyptian;
+            const button = document.querySelector('.translation-btn');
+            button.innerHTML = isEgyptian ? 
+                '<i class="fas fa-language ms-1"></i><span class="translate">English</span>' : 
+                '<i class="fas fa-language ms-1"></i><span class="translate">مصري</span>';
+            
+            // Translate all elements with translate class
+            document.querySelectorAll('.translate').forEach(element => {
+                const originalText = element.getAttribute('data-original-text') || element.textContent;
+                if (isEgyptian) {
+                    element.setAttribute('data-original-text', originalText);
+                    if (translations[originalText]) {
+                        element.textContent = translations[originalText];
+                    }
+                } else {
+                    const original = element.getAttribute('data-original-text');
+                    if (original) {
+                        element.textContent = original;
+                    }
+                }
+            });
+        }
+
+        // Load saved translation
+        const savedTranslation = localStorage.getItem('translation') || 'en';
+        if (savedTranslation === 'ar') {
+            toggleTranslation();
+        }
+    </script>
+</body>
+</html> 
