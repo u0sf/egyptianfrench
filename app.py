@@ -11,11 +11,47 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///students.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
-ALLOWED_EXTENSIONS = {'xlsx'}
 
-# Create uploads directory if it doesn't exist
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+# Upload configuration
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+# Create upload directories
+UPLOAD_DIRS = {
+    'schedules': os.path.join(UPLOAD_FOLDER, 'schedules'),
+    'news': os.path.join(UPLOAD_FOLDER, 'news'),
+    'achievements': os.path.join(UPLOAD_FOLDER, 'achievements')
+}
+
+for directory in UPLOAD_DIRS.values():
+    os.makedirs(directory, exist_ok=True)
+
+ALLOWED_EXTENSIONS = {
+    'xlsx': {'schedules'},
+    'jpg': {'news', 'achievements'},
+    'jpeg': {'news', 'achievements'},
+    'png': {'news', 'achievements'},
+    'pdf': {'schedules'}
+}
+
+def allowed_file(filename, upload_type):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS and \
+           upload_type in ALLOWED_EXTENSIONS[filename.rsplit('.', 1)[1].lower()]
+
+def save_uploaded_file(file, upload_type):
+    if file and allowed_file(file.filename, upload_type):
+        filename = secure_filename(file.filename)
+        # Add timestamp to filename to prevent duplicates
+        name, ext = os.path.splitext(filename)
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"{name}_{timestamp}{ext}"
+        
+        file_path = os.path.join(UPLOAD_DIRS[upload_type], filename)
+        file.save(file_path)
+        return os.path.join(upload_type, filename)
+    return None
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -85,9 +121,6 @@ def calculate_status(grades):
     if not grades:
         return 'No Grades'
     return 'Pass' if all(grade.grade >= 50 for grade in grades) else 'Fail'
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Student Routes
 @app.route('/')
@@ -283,7 +316,11 @@ def add_news():
     if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('content')
-        image_url = request.form.get('image_url')
+        image = request.files.get('image')
+        
+        image_url = None
+        if image:
+            image_url = save_uploaded_file(image, 'news')
         
         news = News(title=title, content=content, image_url=image_url)
         db.session.add(news)
@@ -308,7 +345,11 @@ def add_achievement():
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
-        image_url = request.form.get('image_url')
+        image = request.files.get('image')
+        
+        image_url = None
+        if image:
+            image_url = save_uploaded_file(image, 'achievements')
         
         achievement = Achievement(title=title, description=description, image_url=image_url)
         db.session.add(achievement)
@@ -335,21 +376,15 @@ def add_schedule():
         file = request.files.get('file')
         
         if file:
-            # Create directories if they don't exist
-            os.makedirs('uploads/schedules', exist_ok=True)
-            
-            # Secure the filename
-            filename = secure_filename(file.filename)
-            file_url = os.path.join('uploads', 'schedules', filename)
-            
-            # Save file
-            file.save(file_url)
-            
-            schedule = Schedule(title=title, file_url=file_url)
-            db.session.add(schedule)
-            db.session.commit()
-            flash('Schedule added successfully!', 'success')
-            return redirect(url_for('admin_dashboard'))
+            file_url = save_uploaded_file(file, 'schedules')
+            if file_url:
+                schedule = Schedule(title=title, file_url=file_url)
+                db.session.add(schedule)
+                db.session.commit()
+                flash('Schedule added successfully!', 'success')
+                return redirect(url_for('admin_dashboard'))
+            else:
+                flash('Invalid file type! Please upload Excel or PDF files.', 'error')
     
     return render_template('add_schedule.html')
 
