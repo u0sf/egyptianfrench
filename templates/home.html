@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="container-fluid bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-3 fw-bold mb-4 translate">مركز الفرنسية المصرية</h1>
+                <p class="lead mb-4 translate">منصة تعليمية متكاملة للتميز الأكاديمي</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-center">
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a href="{{ url_for('grades') }}" class="btn btn-primary btn-lg px-4 gap-3">
+                                <i class="fas fa-graduation-cap me-2"></i>اعرف درجاتك
+                            </a>
+                            <a href="{{ url_for('schedules') }}" class="btn btn-outline-primary btn-lg px-4">
+                                <i class="fas fa-calendar-alt me-2"></i>المواعيد
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1HX6r5aunWu8Fluqk522sxwCd9bEttnpr" target="_blank" class="btn btn-outline-primary btn-lg px-4">
+                                <i class="fas fa-users me-2"></i>الطلاب الخريجين
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Message -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 translate">رسالة ترحيبية</h2>
+                    <div class="text-center mb-4">
+                        <p class="lead translate">أبناؤنا وبناتنا الطلاب الأعزاء،</p>
+                        <p class="lead translate">أعضاء منصة الفرنسيه المصريه الكرام،</p>
+                    </div>
+                    <p class="mb-4 text-center translate">نرحب بكم أجمل ترحيب في منصتكم التعليمية التي أنشئت خصيصًا لدعمكم، وتوفير بيئة تعليمية تفاعلية تواكب تطلعاتكم، وتساعدكم على تحقيق طموحاتكم الأكاديمية والمهنية.</p>
+                    <p class="mb-4 text-center translate">نحن، رؤساء مجلس الإدارة، نؤمن أن الاستثمار الحقيقي هو في عقول الشباب، وأنكم أنتم الركيزة الأساسية لبناء المستقبل. ولذلك، حرصنا على أن تضم منصتنا أفضل الكفاءات، وأحدث الوسائل التعليمية، لنكون معكم خطوة بخطوة في رحلتكم نحو التميز والنجاح.</p>
+                    <p class="mb-4 text-center translate">نتمنى لكم تجربة تعليمية مثرية، مليئة بالشغف والمعرفة، وندعوكم للاستفادة القصوى من كافة الإمكانيات التي توفرها المنصة.</p>
+                    <div class="text-center mt-5">
+                        <p class="mb-2 translate">مع خالص تحياتنا وتمنياتنا بالتوفيق والنجاح،</p>
+                        <p class="mb-1 translate">رؤساء مجلس الإدارة</p>
+                        <p class="mb-1 translate">معالي الدكتور /محمد العدل</p>
+                        <p class="translate">المهندس / شريف شاهين</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- News Section -->
+<div class="container py-5">
+    <h2 class="text-center mb-5 translate">آخر الأخبار</h2>
+    <div class="row">
+        {% for news_item in news %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% if news_item.image_url %}
+                <img src="{{ news_item.image_url }}" class="card-img-top" alt="{{ news_item.title }}">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title translate">{{ news_item.title }}</h5>
+                    <p class="card-text translate">{{ news_item.content[:200] }}...</p>
+                    <p class="text-muted small">{{ news_item.date_posted.strftime('%B %d, %Y') }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Achievements Section -->
+<div class="container py-5 bg-light">
+    <h2 class="text-center mb-5 translate">إنجازات مركز الفرنسية المصرية</h2>
+    <div class="row">
+        {% for achievement in achievements %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% if achievement.image_url %}
+                <img src="{{ achievement.image_url }}" class="card-img-top" alt="{{ achievement.title }}">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title translate">{{ achievement.title }}</h5>
+                    <p class="card-text translate">{{ achievement.description }}</p>
+                    <p class="text-muted small">{{ achievement.date_achieved.strftime('%B %d, %Y') }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    /* تحسين الدارك مود */
+    [data-bs-theme="dark"] .bg-light {
+        background-color: #23272b !important;
+    }
+    [data-bs-theme="dark"] .container-fluid.bg-light {
+        background-color: #181a1b !important;
+    }
+    [data-bs-theme="dark"] .card {
+        background-color: #23272b;
+        color: #f8f9fa;
+        border-color: #343a40;
+    }
+    [data-bs-theme="dark"] .card .card-title,
+    [data-bs-theme="dark"] .card .card-text {
+        color: #f8f9fa;
+    }
+    [data-bs-theme="dark"] .card .text-muted {
+        color: #b0b3b8 !important;
+    }
+    [data-bs-theme="dark"] .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        color: #fff;
+    }
+    [data-bs-theme="dark"] .btn-primary:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+    }
+    [data-bs-theme="dark"] .btn-outline-primary {
+        color: #0d6efd;
+        border-color: #0d6efd;
+        background: transparent;
+    }
+    [data-bs-theme="dark"] .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+    [data-bs-theme="dark"] .lead,
+    [data-bs-theme="dark"] h1,
+    [data-bs-theme="dark"] h2,
+    [data-bs-theme="dark"] h3,
+    [data-bs-theme="dark"] h4,
+    [data-bs-theme="dark"] h5 {
+        color: #f8f9fa;
+    }
+</style>
+{% endblock %} 

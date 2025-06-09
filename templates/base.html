@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الفرنسية المصرية</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Background pattern with icons: book, graduation cap, certificate, lightbulb */
+            background-color: var(--bs-body-bg);
+            background-image: url('data:image/svg+xml;utf8,<svg width="600" height="900" viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.10"><!-- Book --><rect x="60" y="60" width="80" height="50" rx="8" stroke="%236c757d" stroke-width="4"/><line x1="100" y1="60" x2="100" y2="110" stroke="%236c757d" stroke-width="4"/><!-- Graduation Cap --><polygon points="400,120 470,150 330,150" stroke="%236c757d" stroke-width="4" fill="none"/><rect x="370" y="150" width="60" height="25" rx="6" stroke="%236c757d" stroke-width="4" fill="none"/><line x1="435" y1="150" x2="435" y2="180" stroke="%236c757d" stroke-width="4"/><circle cx="435" cy="185" r="5" stroke="%236c757d" stroke-width="4" fill="none"/><!-- Certificate --><rect x="120" y="300" width="80" height="60" rx="8" stroke="%236c757d" stroke-width="4"/><line x1="130" y1="320" x2="190" y2="320" stroke="%236c757d" stroke-width="3"/><line x1="130" y1="340" x2="180" y2="340" stroke="%236c757d" stroke-width="2"/><circle cx="160" cy="355" r="8" stroke="%236c757d" stroke-width="3" fill="none"/><line x1="160" y1="363" x2="160" y2="375" stroke="%236c757d" stroke-width="2"/><!-- Lightbulb --><ellipse cx="500" cy="350" rx="25" ry="35" stroke="%236c757d" stroke-width="4" fill="none"/><line x1="500" y1="385" x2="500" y2="410" stroke="%236c757d" stroke-width="4"/><rect x="485" y="410" width="30" height="10" rx="3" stroke="%236c757d" stroke-width="3" fill="none"/><!-- Random placements --><!-- Book --><rect x="300" y="700" width="80" height="50" rx="8" stroke="%236c757d" stroke-width="4"/><line x1="340" y1="700" x2="340" y2="750" stroke="%236c757d" stroke-width="4"/><!-- Graduation Cap --><polygon points="100,800 170,830 30,830" stroke="%236c757d" stroke-width="4" fill="none"/><rect x="70" y="830" width="60" height="25" rx="6" stroke="%236c757d" stroke-width="4" fill="none"/><line x1="135" y1="830" x2="135" y2="860" stroke="%236c757d" stroke-width="4"/><circle cx="135" cy="865" r="5" stroke="%236c757d" stroke-width="4" fill="none"/><!-- Certificate --><rect x="400" y="600" width="80" height="60" rx="8" stroke="%236c757d" stroke-width="4"/><line x1="410" y1="620" x2="470" y2="620" stroke="%236c757d" stroke-width="3"/><line x1="410" y1="640" x2="460" y2="640" stroke="%236c757d" stroke-width="2"/><circle cx="440" cy="655" r="8" stroke="%236c757d" stroke-width="3" fill="none"/><line x1="440" y1="663" x2="440" y2="675" stroke="%236c757d" stroke-width="2"/><!-- Lightbulb --><ellipse cx="200" cy="500" rx="25" ry="35" stroke="%236c757d" stroke-width="4" fill="none"/><line x1="200" y1="535" x2="200" y2="560" stroke="%236c757d" stroke-width="4"/><rect x="185" y="560" width="30" height="10" rx="3" stroke="%236c757d" stroke-width="3" fill="none"/></g></svg>');
+            background-repeat: repeat;
+            background-size: 600px 900px;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        .footer {
+            flex-shrink: 0;
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .social-links a {
+            color: #6c757d;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: #0d6efd;
+        }
+        .nav-link {
+            font-weight: 500;
+        }
+        .nav-link.active {
+            color: #0d6efd !important;
+        }
+        /* Dark mode styles */
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #1a1d20;
+            --bs-body-color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .navbar {
+            background-color: #212529 !important;
+            border-bottom: 1px solid #343a40;
+        }
+        [data-bs-theme="dark"] .navbar, [data-bs-theme="dark"] .navbar .navbar-brand, [data-bs-theme="dark"] .navbar .nav-link, [data-bs-theme="dark"] .navbar .nav-link i, [data-bs-theme="dark"] .navbar .navbar-toggler, [data-bs-theme="dark"] .navbar .btn {
+            color: #f8f9fa !important;
+        }
+        [data-bs-theme="dark"] .navbar .nav-link.active {
+            color: #0d6efd !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-primary {
+            color: #0d6efd !important;
+            border-color: #0d6efd !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-primary:hover {
+            background-color: #0d6efd !important;
+            color: #fff !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-secondary {
+            color: #adb5bd !important;
+            border-color: #adb5bd !important;
+        }
+        [data-bs-theme="dark"] .navbar .btn-outline-secondary:hover {
+            background-color: #adb5bd !important;
+            color: #212529 !important;
+        }
+        [data-bs-theme="dark"] .footer {
+            background-color: #212529;
+            color: #e9ecef;
+            border-top: 1px solid #343a40;
+        }
+        [data-bs-theme="dark"] .card {
+            background-color: #2c3034;
+            border-color: #343a40;
+        }
+        [data-bs-theme="dark"] .table {
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .table-light {
+            background-color: #2c3034;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .text-muted {
+            color: #adb5bd !important;
+        }
+        [data-bs-theme="dark"] .alert {
+            background-color: #2c3034;
+            border-color: #343a40;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .form-control {
+            background-color: #2c3034;
+            border-color: #343a40;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .form-control:focus {
+            background-color: #2c3034;
+            border-color: #0d6efd;
+            color: #e9ecef;
+        }
+        [data-bs-theme="dark"] .progress {
+            background-color: #343a40;
+        }
+        /* Translation button styles */
+        .translation-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .translation-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .translation-btn:hover::after {
+            opacity: 0.1;
+        }
+        [data-bs-theme="dark"] body {
+            background-color: #181b1f;
+            background-image: url('data:image/svg+xml;utf8,<svg width="600" height="900" viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.13"><!-- Book --><rect x="60" y="60" width="80" height="50" rx="8" stroke="%233a6fa1" stroke-width="4"/><line x1="100" y1="60" x2="100" y2="110" stroke="%233a6fa1" stroke-width="4"/><!-- Graduation Cap --><polygon points="400,120 470,150 330,150" stroke="%233a6fa1" stroke-width="4" fill="none"/><rect x="370" y="150" width="60" height="25" rx="6" stroke="%233a6fa1" stroke-width="4" fill="none"/><line x1="435" y1="150" x2="435" y2="180" stroke="%233a6fa1" stroke-width="4"/><circle cx="435" cy="185" r="5" stroke="%233a6fa1" stroke-width="4" fill="none"/><!-- Certificate --><rect x="120" y="300" width="80" height="60" rx="8" stroke="%233a6fa1" stroke-width="4"/><line x1="130" y1="320" x2="190" y2="320" stroke="%233a6fa1" stroke-width="3"/><line x1="130" y1="340" x2="180" y2="340" stroke="%233a6fa1" stroke-width="2"/><circle cx="160" cy="355" r="8" stroke="%233a6fa1" stroke-width="3" fill="none"/><line x1="160" y1="363" x2="160" y2="375" stroke="%233a6fa1" stroke-width="2"/><!-- Lightbulb --><ellipse cx="500" cy="350" rx="25" ry="35" stroke="%233a6fa1" stroke-width="4" fill="none"/><line x1="500" y1="385" x2="500" y2="410" stroke="%233a6fa1" stroke-width="4"/><rect x="485" y="410" width="30" height="10" rx="3" stroke="%233a6fa1" stroke-width="3" fill="none"/><!-- Random placements --><!-- Book --><rect x="300" y="700" width="80" height="50" rx="8" stroke="%233a6fa1" stroke-width="4"/><line x1="340" y1="700" x2="340" y2="750" stroke="%233a6fa1" stroke-width="4"/><!-- Graduation Cap --><polygon points="100,800 170,830 30,830" stroke="%233a6fa1" stroke-width="4" fill="none"/><rect x="70" y="830" width="60" height="25" rx="6" stroke="%233a6fa1" stroke-width="4" fill="none"/><line x1="135" y1="830" x2="135" y2="860" stroke="%233a6fa1" stroke-width="4"/><circle cx="135" cy="865" r="5" stroke="%233a6fa1" stroke-width="4" fill="none"/><!-- Certificate --><rect x="400" y="600" width="80" height="60" rx="8" stroke="%233a6fa1" stroke-width="4"/><line x1="410" y1="620" x2="470" y2="620" stroke="%233a6fa1" stroke-width="3"/><line x1="410" y1="640" x2="460" y2="640" stroke="%233a6fa1" stroke-width="2"/><circle cx="440" cy="655" r="8" stroke="%233a6fa1" stroke-width="3" fill="none"/><line x1="440" y1="663" x2="440" y2="675" stroke="%233a6fa1" stroke-width="2"/><!-- Lightbulb --><ellipse cx="200" cy="500" rx="25" ry="35" stroke="%233a6fa1" stroke-width="4" fill="none"/><line x1="200" y1="535" x2="200" y2="560" stroke="%233a6fa1" stroke-width="4"/><rect x="185" y="560" width="30" height="10" rx="3" stroke="%233a6fa1" stroke-width="3" fill="none"/></g></svg>');
+            background-repeat: repeat;
+            background-size: 600px 900px;
+        }
+        .codera-link {
+            transition: color 0.3s ease;
+        }
+        .codera-link:hover {
+            color: #007bff !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="لوجو مركز الفرنسية المصرية" style="height: 48px; width: auto;">
+                مركز الفرنسية المصرية
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+                            <i class="fas fa-home ms-1"></i>الرئيسية
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'grades' %}active{% endif %}" href="{{ url_for('grades') }}">
+                            <i class="fas fa-graduation-cap ms-1"></i>الدرجات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'schedules' %}active{% endif %}" href="{{ url_for('schedules') }}">
+                            <i class="fas fa-calendar-alt ms-1"></i>المواعيد
+                        </a>
+                    </li>
+                    {% if session.get('admin_logged_in') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}" href="{{ url_for('admin_dashboard') }}">
+                            <i class="fas fa-tachometer-alt ms-1"></i>لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt ms-1"></i>تسجيل خروج
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ms-2">
+                        <button class="btn btn-outline-primary" onclick="toggleDarkMode()">
+                            <i class="fas fa-moon ms-1"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show m-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">تواصل معنا</h5>
+                    <p class="mb-1">
+                        <i class="fas fa-map-marker-alt ms-2"></i>
+                        فرع طنطا: سبرباي امام مجمع الكليات
+                    </p>
+                    <p class="mb-1">
+                        <i class="fas fa-map-marker-alt ms-2"></i>
+                        فرع المنصورة: شارع بن زيد امام بوابة توشكى
+                    </p>
+                    <p class="mb-1">
+                        <i class="fab fa-whatsapp ms-2"></i>
+                        واتساب: 01095991211
+                    </p>
+                    <p class="mb-1">
+                        <i class="fab fa-whatsapp ms-2"></i>
+                        واتساب: 01274400211
+                    </p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{{ url_for('home') }}" class="text-decoration-none text-muted">
+                                <i class="fas fa-angle-left ms-2"></i>الرئيسية
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{{ url_for('schedules') }}" class="text-decoration-none text-muted">
+                                <i class="fas fa-angle-left ms-2"></i>المواعيد
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{{ url_for('grades') }}" class="text-decoration-none text-muted">
+                                <i class="fas fa-angle-left ms-2"></i>الدرجات
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">مواقع التواصل</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="https://www.facebook.com/share/19BGwFHMTq/" class="text-decoration-none text-muted" target="_blank">
+                                <i class="fab fa-facebook ms-2"></i>صفحة الفيسبوك الأولى
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://www.facebook.com/share/12JCph55cjJ/" class="text-decoration-none text-muted" target="_blank">
+                                <i class="fab fa-facebook ms-2"></i>صفحة الفيسبوك الثانية
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>developed by <a href="https://www.facebook.com/share/1HsUgaDjJD/?mibextid=qi2Omg" class="text-decoration-none text-muted codera-link" target="_blank">codera</a> ©</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dark mode toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            // Update button icon
+            const button = document.querySelector('.btn-outline-primary');
+            const icon = button.querySelector('i');
+            icon.className = newTheme === 'dark' ? 'fas fa-sun ms-1' : 'fas fa-moon ms-1';
+        }
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        const darkModeButton = document.querySelector('.btn-outline-primary');
+        const darkModeIcon = darkModeButton.querySelector('i');
+        darkModeIcon.className = savedTheme === 'dark' ? 'fas fa-sun ms-1' : 'fas fa-moon ms-1';
+
+        // Translation toggle
+        let isEgyptian = false;
+        const translations = {
+            'University Portal': 'مركز الفرنسية المصرية',
+            'Home': 'الرئيسية',
+            'Grades': 'الدرجات',
+            'Schedules': 'المواعيد',
+            'Dashboard': 'لوحة التحكم',
+            'Logout': 'تسجيل خروج',
+            'Admin Login': 'تسجيل دخول المشرف',
+            'Welcome to University Portal': 'مرحباً بكم في مركز الفرنسية المصرية',
+            'Your gateway to academic excellence and university life': 'منصة تعليمية متكاملة للتميز الأكاديمي',
+            'Latest News': 'آخر الأخبار',
+            'University Achievements': 'إنجازات مركز الفرنسية المصرية',
+            'Check Your Grades': 'شوف درجاتك',
+            'Enter your seat number to view your academic results': 'دخل رقم جلوسك عشان تشوف نتيجتك',
+            'Search Results': 'بحث عن النتائج',
+            'Enter Your Seat Number': 'دخل رقم جلوسك',
+            'View Results': 'شوف النتيجة',
+            'Contact Us': 'تواصل معنا',
+            'Quick Links': 'روابط سريعة',
+            'About Us': 'عن مركز الفرنسية المصرية',
+            'Follow Us': 'تابعنا',
+            'All rights reserved': 'جميع الحقوق محفوظة',
+            '123 University Street, City': 'سبرباي امام مجمع الكليات',
+            'Add News': 'إضافة خبر',
+            'Add Achievement': 'إضافة إنجاز',
+            'Upload Schedule': 'رفع جدول',
+            'Upload Grades Excel File': 'رفع ملف درجات إكسل',
+            'Add New Student': 'إضافة طالب جديد',
+            'Student Results Management': 'إدارة نتائج الطلاب',
+            'Delete All Students': 'حذف كل الطلاب',
+            'Delete All Grades': 'حذف كل الدرجات',
+            'Are you sure you want to delete all students and their grades?': 'هل أنت متأكد إنك عايز تحذف كل الطلاب ودرجاتهم؟',
+            'Are you sure you want to delete all grades?': 'هل أنت متأكد إنك عايز تحذف كل الدرجات؟',
+            'Are you sure you want to delete this grade?': 'هل أنت متأكد إنك عايز تحذف الدرجة دي؟',
+            'Student not found!': 'الطالب مش موجود!',
+            'Invalid username or password!': 'اسم المستخدم أو كلمة المرور غلط!',
+            'News added successfully!': 'تم إضافة الخبر بنجاح!',
+            'News deleted successfully!': 'تم حذف الخبر بنجاح!',
+            'Achievement added successfully!': 'تم إضافة الإنجاز بنجاح!',
+            'Achievement deleted successfully!': 'تم حذف الإنجاز بنجاح!',
+            'Schedule added successfully!': 'تم إضافة الجدول بنجاح!',
+            'Schedule deleted successfully!': 'تم حذف الجدول بنجاح!',
+            'Student added successfully!': 'تم إضافة الطالب بنجاح!',
+            'Student with this seat number already exists!': 'الطالب برقم الجلوس ده موجود بالفعل!',
+            'Grades uploaded successfully!': 'تم رفع الدرجات بنجاح!',
+            'Please upload an Excel file (.xlsx)!': 'من فضلك ارفع ملف إكسل (.xlsx)!',
+            'No file selected!': 'مفيش ملف محدد!',
+            'No file uploaded!': 'مفيش ملف تم رفعه!',
+            'Error uploading file': 'خطأ في رفع الملف',
+            'Title': 'العنوان',
+            'Content': 'المحتوى',
+            'Image URL': 'رابط الصورة',
+            'Description': 'الوصف',
+            'Schedule File (PDF)': 'ملف الجدول (PDF)',
+            'Select Excel File (.xlsx)': 'اختر ملف إكسل (.xlsx)',
+            'Seat Number': 'رقم الجلوس',
+            'Student Name': 'اسم الطالب',
+            'Upload File': 'رفع الملف',
+            'Add Student': 'إضافة طالب',
+            'Seat No.': 'رقم الجلوس',
+            'Name': 'الاسم',
+            'Grade': 'الدرجة',
+            'Status': 'الحالة',
+            'Actions': 'الإجراءات',
+            'Pass': 'ناجح',
+            'Fail': 'راسب',
+            'No Grades': 'مفيش درجات',
+            'Edit': 'تعديل',
+            'Delete': 'حذف',
+            'View': 'عرض',
+            'Check Another Result': 'شوف نتيجة تانية',
+            'Total Students': 'إجمالي الطلاب',
+            'Students with Grades': 'الطلاب اللي عندهم درجات',
+            'Passing Students': 'الطلاب الناجحين',
+            'Failing Students': 'الطلاب الراسبين',
+            'Manage students, grades, news, and more': 'إدارة الطلاب والدرجات والأخبار وأكتر',
+            'English': 'إنجليزي',
+            'رسالة ترحيبية': 'رسالة ترحيبية',
+            'أبناؤنا وبناتنا الطلاب الأعزاء': 'أبناؤنا وبناتنا الطلاب الأعزاء',
+            'أعضاء منصة الفرنسيه المصريه الكرام': 'أعضاء منصة الفرنسيه المصريه الكرام',
+            'فروع مركز الفرنسية المصرية': 'فروع مركز الفرنسية المصرية',
+            'فرع طنطا': 'فرع طنطا',
+            'فرع المنصورة': 'فرع المنصورة',
+            'تابعنا على فيسبوك': 'تابعنا على فيسبوك',
+            'واتساب': 'واتساب',
+            'تواصل معنا': 'تواصل معنا'
+        };
+
+        function toggleTranslation() {
+            isEgyptian = !isEgyptian;
+            const button = document.querySelector('.translation-btn');
+            button.innerHTML = isEgyptian ? 
+                '<i class="fas fa-language ms-1"></i><span class="translate">English</span>' : 
+                '<i class="fas fa-language ms-1"></i><span class="translate">مصري</span>';
+            
+            // Translate all elements with translate class
+            document.querySelectorAll('.translate').forEach(element => {
+                const originalText = element.getAttribute('data-original-text') || element.textContent;
+                if (isEgyptian) {
+                    element.setAttribute('data-original-text', originalText);
+                    if (translations[originalText]) {
+                        element.textContent = translations[originalText];
+                    }
+                } else {
+                    const original = element.getAttribute('data-original-text');
+                    if (original) {
+                        element.textContent = original;
+                    }
+                }
+            });
+        }
+
+        // Load saved translation
+        const savedTranslation = localStorage.getItem('translation') || 'en';
+        if (savedTranslation === 'ar') {
+            toggleTranslation();
+        }
+    </script>
+</body>
+</html> 

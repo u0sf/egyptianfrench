@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center mb-5">
+            <h1 class="display-4 text-primary mb-3">استعلام عن الدرجات</h1>
+            <p class="lead text-muted">ادخل رقم جلوسك عشان تشوف نتيجتك</p>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-search ms-2"></i>بحث عن النتيجة</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('results') }}">
+                        <div class="mb-4">
+                            <label for="seat_number" class="form-label">
+                                <i class="fas fa-id-card ms-2"></i>ادخل رقم جلوسك
+                            </label>
+                            <input type="text" class="form-control form-control-lg" 
+                                   id="seat_number" name="seat_number" 
+                                   placeholder="اكتب رقم جلوسك هنا..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-search ms-2"></i>عرض النتيجة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+    .shadow-sm {
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    }
+    .form-control-lg {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+    .btn-lg {
+        padding: 0.8rem;
+        font-size: 1.1rem;
+    }
+    .display-4 {
+        font-weight: 600;
+    }
+    .lead {
+        font-size: 1.2rem;
+    }
+    /* دارك مود موحد */
+    [data-bs-theme="dark"] .card {
+        background-color: #23272b;
+        color: #f8f9fa;
+        border-color: #343a40;
+    }
+    [data-bs-theme="dark"] .card-header {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+    [data-bs-theme="dark"] .form-control {
+        background-color: #23272b;
+        color: #f8f9fa;
+        border-color: #343a40;
+    }
+    [data-bs-theme="dark"] .form-control:focus {
+        background-color: #23272b;
+        color: #f8f9fa;
+        border-color: #0d6efd;
+    }
+    [data-bs-theme="dark"] .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        color: #fff;
+    }
+    [data-bs-theme="dark"] .btn-primary:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+    }
+    [data-bs-theme="dark"] .lead,
+    [data-bs-theme="dark"] h1,
+    [data-bs-theme="dark"] h4 {
+        color: #f8f9fa;
+    }
+</style>
+{% endblock %} 
